@@ -1,0 +1,15 @@
+import requests
+import geocoder
+
+location = geocoder.ip('me')
+location = location.latlng
+lat = location[0]
+lon = location[1]
+
+url = 'https://api.weather.yandex.ru/v2/forecast'
+header = {
+    'GET': 'https://api.weather.yandex.ru/v2/forecast?lat='+str(lat)+'&lon='+str(lon)+'&hours=true',
+    'X-Yandex-API-Key': 'cba4c915-4aae-4801-996c-6340f7b5529f'
+}
+temp = requests.get(url, headers=header).json()['fact']['temp']
+print('Температура на улице '+str(temp)+'°C')
